@@ -38,6 +38,7 @@ module.exports = {
   resolve: {
     extensions: ['*', '.js']
   },
+  
   plugins: [
     new HtmlWebpackPlugin({
         favicon: '4geeks.ico',
