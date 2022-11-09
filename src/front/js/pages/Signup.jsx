@@ -2,11 +2,36 @@ import React from "react"
 
 function Signup (){
 
+    async function signUp(e){
+        e.preventDefault()
+        console.log("We ar ein signup function")
+        var formData = new FormData(e.target)
+        let email = formData.get("email")
+        let password = formData.get("password")
+
+        let data = {
+            "email":email,
+            "password":password
+        }
+        
+        let BACKEND_URL = process.env.BACKEND_URL
+        console.log("Here")
+        let response = await fetch(BACKEND_URL+"signup",{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+            body: JSON.stringify(data)})
+            console.log(await response.json())
+        }
+        
+
 
     return(
 
         <div className="signup-container">
-            <form  action="" method="post">
+            <form onSubmit={(e) => signUp(e)} action="" method="post">
                 <div className="mb-3">
                     <label  for="email" className="form-label">Email address</label>
                     <input name="email" type="email" class="form-control" id="email" placeholder="name@example.com"/>
