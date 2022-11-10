@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useParams } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 
 import { Home } from "./pages/home";
@@ -7,6 +7,7 @@ import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import { Signup } from "./pages/Signup.jsx"; //Component to register user
 import { Login } from "./pages/Login.jsx";
+import { UserProfile } from "./pages/UserProfile.jsx";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
@@ -29,6 +30,7 @@ const Layout = () => {
             <Route element={<Single />} path="/single/:theid" />
             <Route element={<Signup />} path="/signup" />
             <Route element={<Login />} path="/login" />
+            <Route element={<UserProfile />} path="/user/:userId" />
             <Route element={<h1>Not found!</h1>} />
           </Routes>
           <Footer />

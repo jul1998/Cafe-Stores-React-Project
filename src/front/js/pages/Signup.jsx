@@ -1,6 +1,8 @@
-import React from "react"
+import React, {useContext} from "react"
+import {Context} from "../store/appContext"
 
 function Signup (){
+    const {store, actions} = useContext(Context)
 
     async function signUp(e){
         e.preventDefault()
@@ -13,7 +15,7 @@ function Signup (){
             "email":email,
             "password":password
         }
-        
+        /*
         let BACKEND_URL = process.env.BACKEND_URL
         console.log("Here")
         let response = await fetch(BACKEND_URL+"signup",{
@@ -24,7 +26,12 @@ function Signup (){
                 },
             body: JSON.stringify(data)})
             console.log(await response.json())
+                */
+        let response = await actions.genericFetch("signup", "POST", data)
+        console.log(response)
         }
+
+        
         
 
 

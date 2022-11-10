@@ -46,7 +46,51 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				//reset the global store
 				setStore({ demo: demo });
+			},
+			genericFetch: async (endpoint,method="GET",data=undefined)=>{
+				let BACKEND_URL = process.env.BACKEND_URL
+				let response = await fetch(BACKEND_URL+endpoint,{
+					method: method,
+					headers: {
+						'Content-Type': 'application/json'
+							// 'Content-Type': 'application/x-www-form-urlencoded',
+						},
+					body: JSON.stringify(data)})
+				
+				let responseJson = response.json()
+				return responseJson
+			},
+			genericFetchProtected: async (endpoint,method="GET",data=undefined)=>{
+				const store = getStore()
+				let BACKEND_URL = process.env.BACKEND_URL
+				let response = await fetch(BACKEND_URL+endpoint,{
+					method: method,
+					headers: {
+						'Content-Type': 'application/json',
+						"Authorization": "Bearer "+store.token,
+						},
+					body: JSON.stringify(data)})
+				
+				let responseJson = await response.json()
+				console.log(responseJson)
+				return responseJson
+			},
+			login: async (endpoint,method="GET",data=undefined)=>{
+				const store = getStore() 
+				let BACKEND_URL = process.env.BACKEND_URL
+				let response = await fetch(BACKEND_URL+endpoint,{
+					method: method,
+					headers: {
+						'Content-Type': 'application/json'
+							// 'Content-Type': 'application/x-www-form-urlencoded',
+						},
+					body: JSON.stringify(data)})
+				
+				let responseJson = await response.json()
+				setStore({...store, token:responseJson.access_token, user_id:responseJson.user_id})
+				return responseJson
 			}
+
 		}
 	};
 };
