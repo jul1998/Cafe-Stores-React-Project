@@ -1,5 +1,6 @@
 import React, {useContext} from "react"
 import {Context} from "../store/appContext"
+import Swal from 'sweetalert2'
 
 function Signup (){
     const {store, actions} = useContext(Context)
@@ -29,6 +30,16 @@ function Signup (){
                 */
         let response = await actions.genericFetch("signup", "POST", data)
         console.log(response)
+        if (response){
+            Swal.fire({
+                position: 'top-end',
+                icon: 'warning',
+                title: response.msg,
+                showConfirmButton: false,
+                timer: 1500
+              })
+              console.log( await response)
+        }
         }
 
         

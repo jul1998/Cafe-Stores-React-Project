@@ -57,7 +57,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						},
 					body: JSON.stringify(data)})
 				
-				let responseJson = response.json()
+				let responseJson = await response.json()
 				return responseJson
 			},
 			genericFetchProtected: async (endpoint,method="GET",data=undefined)=>{
@@ -72,7 +72,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					body: JSON.stringify(data)})
 				
 				let responseJson = await response.json()
-				console.log(responseJson)
 				return responseJson
 			},
 			login: async (endpoint,method="GET",data=undefined)=>{
@@ -88,6 +87,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				
 				let responseJson = await response.json()
 				setStore({...store, token:responseJson.access_token, user_id:responseJson.user_id})
+				localStorage.setItem('token', responseJson.access_token)
+				console.log("Storage token",localStorage.getItem("token"))
 				return responseJson
 			}
 

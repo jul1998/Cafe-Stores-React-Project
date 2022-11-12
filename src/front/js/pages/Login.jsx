@@ -1,6 +1,8 @@
 import React, {useContext} from "react"
 import {Context} from "../store/appContext"
 import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2'
+
 
 
 function Login(){
@@ -13,10 +15,24 @@ function Login(){
         let response = await actions.genericFetchProtected("protected")
         if (response.logged_in_as){
             console.log("We did it!")
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Login successful',
+                showConfirmButton: false,
+                timer: 1500
+              })
+
             navigate(`/user/${user_id}`)
 
 
         }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Wrong username or password!',
+                footer: '<a href="">Why do I have this issue?</a>'
+              })
             console.log("Wrong username or password")
         }
         
@@ -54,7 +70,7 @@ function Login(){
 
                 <div className="mb-3">
                     <label for="password" className="form-label">Password</label>
-                    <input name="password" type="text" class="form-control" id="password"/>
+                    <input name="password" type="password" class="form-control" id="password"/>
                 </div>
 
                 <div className="button">
