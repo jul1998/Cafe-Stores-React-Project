@@ -25,6 +25,11 @@ function UserProfileComponent({userEmail}){
         setFavoriteCafeList(prevList=>[...prevList,item])
     }
 
+    function removeFavorite(card){
+        setFavoriteCafeList((current) =>
+            current.filter((item) => item.id !== card.id))
+    }
+
     console.log(favoriteCafeList)
 
 
@@ -37,13 +42,23 @@ function UserProfileComponent({userEmail}){
                 <button onClick={() => setIsClicked(false)}>Hide cafe stores</button>
                 <button onClick={()=>setIsClicked(true)}>Click here to see cafe stores</button>
                 <div className="list_cafes">
-                    {isClicked?cafeStoreList.map((item,index) =>{
-            return(<li  className="list-group-item" key={item.id}>
-                {item.name} 
-                <i style={{color: "red", paddingLeft: "10px"}} onClick={()=>addFavorite(item.name)} className="fa-solid fa-heart"></i>
-                <i  style={{paddingLeft: "10px"}}  className="fa-regular fa-x"></i>
-                </li>)
-        }):null}
+                {isClicked?cafeStoreList.map((item,index) =>{
+                return(
+                <div className="list_stores" key={index}>
+                    <div  className="row row-cols-1 row-cols-md-3 g-4">
+                    <div className="col">
+                        <div id="card" className="card h-100">
+                        <img src={item.img_url} className="card-img-top" alt="..."/>
+                            <div className="card-body">
+                            <h5 className="card-title">{item.name}</h5>
+                            <i style={{color: "red", paddingLeft: "10px"}} onClick={()=>addFavorite(item.name)} className="fa-solid fa-heart"></i>
+                            <i  style={{paddingLeft: "10px"}} onClick={()=> removeFavorite(item.id)}  className="fa-regular fa-x"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                </div>)}):null}
                 </div>
                 
                 

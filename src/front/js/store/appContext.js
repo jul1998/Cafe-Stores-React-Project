@@ -21,6 +21,7 @@ const injectContext = PassedComponent => {
 			})
 		);
 
+		const [favoriteCafeList, setFavoriteCafeList] = useState([])
 		useEffect(() => {
 			/**
 			 * EDIT THIS!
